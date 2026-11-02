@@ -1,0 +1,45 @@
+<form #signUpForm = "ngForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="mail">Email</label>
+    <input id="mail" name="mail" type="email" required email #mailInput="ngModel" [(ngModel)]="user.mail">
+    @if (signUpForm.submitted && mailInput.errors?.['required']) {
+      <p>L'email est requis</p>
+    }
+    @if (signUpForm.submitted && mailInput.errors?.['email']) {
+      <p>L'email est invalide</p>
+    }
+  </div>
+  <div>
+    <label for="firstname">Prénom</label>
+    <input id="firstname" name="firstname" type="text" required #firstnameInput="ngModel" minlength="3" maxlength="15" [(ngModel)]="user.firstname">
+    @if (signUpForm.submitted && firstnameInput.errors?.['required']) {
+      <p>Le prénom est requis</p>
+    }
+    @if (signUpForm.submitted && firstnameInput.errors?.['maxlength']) {
+      <p>Le prénom ne doit pas dépasser 15 caractères</p>
+    }
+    @if (signUpForm.submitted && firstnameInput.errors?.['minlength']) {
+      <p>Le prénom doit comporter au moins 3 caractères</p>
+    }
+  </div>
+  <div>
+    <label for="lastname">Nom de famille</label>
+    <input id="lastname" name="lastname" type="text" required #lastnameInput="ngModel" minlength="3" maxlength="15" [(ngModel)]="user.lastname">
+    @if (signUpForm.submitted && lastnameInput.errors?.['required']) {
+      <p>Le nom de famille est requis</p>
+    }
+    @if (signUpForm.submitted && lastnameInput.errors?.['maxlength']) {
+      <p>Le nom de famille ne doit pas dépasser 15 caractères</p>
+    }
+    @if (signUpForm.submitted && lastnameInput.errors?.['minlength']) {
+      <p>Le nom de famille doit comporter au moins 3 caractères</p>
+    }
+  </div>
+  <div>
+    <label for="password">Mot de passe</label>
+    <input id="password" name="password" type="password" [(ngModel)]="user.password">
+  </div>
+  <div>
+    <button type="submit">S'inscrire</button>
+  </div>
+</form>
