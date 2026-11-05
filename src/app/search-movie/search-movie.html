@@ -1,0 +1,40 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" #searchFormRef="ngForm">
+  <div formGroupName="identification">
+    <div>
+      <label for="id">Identifiant </label>
+        <input id="id" type="text" formControlName="id">
+    </div>
+    <div>
+      <label for="title">Titre</label>
+      <input id="title" type="text" formControlName="title">
+    </div>
+  </div>
+  @if (searchFormRef.submitted && searchForm.controls.identification.errors?.['isRequired']) {
+    <span>L'un des deux champs "Identifiant" ou "Titre" doit être renseigné.</span>
+  }
+  <div>
+    <label for="type">Type</label>
+    <select id="type" formControlName="type">
+    <option value="film">Film</option>
+    <option value="séries">Série</option>
+    <option value="épisode">Episode</option>
+    </select>
+  </div>
+  <div>
+    <label for="year">Année de sortie</label>
+    <input id="year" type="number" formControlName="year">
+  </div>
+  @if (searchFormRef.submitted && searchForm.controls.year.errors?.['required']) {
+    <span>L'année est requise.</span>
+  }
+  @if (searchFormRef.submitted && searchForm.controls.year.errors?.['min']) {
+    <span>L'année doit être comprise entre {{ searchForm.controls.year.errors?.['min'].min }} et {{ searchForm.controls.year.errors?.['min'].max}}</span> }
+  <div>
+    <label for="plot">Fiche</label>
+    <select id="plot" formControlName="plot">
+      <option value="complète">Compléte</option>
+      <option value="courte">Courte</option>
+    </select>
+  </div>
+  <button type="submit">Rechercher</button>
+</form>
